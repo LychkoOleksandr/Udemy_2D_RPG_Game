@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Entity
 {
     private UI ui;
+    public Player_VFX vfx;
     public static event Action OnPlayerDeath;
     public PlayerInputSet input { get; private set; }
     public Player_SkillManager skillManager { get; private set; }
@@ -45,6 +46,7 @@ public class Player : Entity
         base.Awake();
 
         ui = FindAnyObjectByType<UI>();
+        vfx = GetComponent<Player_VFX>();
         skillManager = GetComponent<Player_SkillManager>();
         input = new PlayerInputSet();
         idleState = new Player_IdleState(this, stateMachine, "idle");

@@ -5,7 +5,7 @@ public abstract class PlayerState : EntityState
     private static readonly int YVelocity = Animator.StringToHash("yVelocity");
     protected readonly PlayerInputSet input;
     protected readonly Player player;
-    protected Player_SkillManager skills;
+    protected Player_SkillManager skillManager;
     
         
     protected PlayerState(Player player, StateMachine stateMachine, string animBoolName) : base(stateMachine, animBoolName)
@@ -16,7 +16,7 @@ public abstract class PlayerState : EntityState
         rb = player.rb;
         stats = player.stats;
         input = player.input;
-        skills = player.skillManager;
+        skillManager = player.skillManager;
     }
 
     public override void Update()
@@ -25,14 +25,14 @@ public abstract class PlayerState : EntityState
 
         if (input.Player.Dash.WasPressedThisFrame() && CanDash())
         {
-            skills.dash.SetSkillOnCooldown();
+            skillManager.dash.SetSkillOnCooldown();
             stateMachine.ChangeState(player.dashState);
         }
     }
 
     private bool CanDash()
     {
-        if (!skills.dash.CanUseSkill())
+        if (!skillManager.dash.CanUseSkill())
             return false;
         
         return !player.wallDetected && stateMachine.currentState != player.dashState;

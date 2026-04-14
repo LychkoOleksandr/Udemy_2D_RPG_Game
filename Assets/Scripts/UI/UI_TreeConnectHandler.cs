@@ -45,7 +45,7 @@ public class UI_TreeConnectHandler : MonoBehaviour
         UpdateConnections();
     }
 
-    public void UpdateConnections()
+    private void UpdateConnections()
     {
         for (int i = 0; i < connectionDetails.Length; i++)
         {
